@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-dnd'
 import './App.css';
 
+import List from './components/List'
+
+
 class App extends Component {
+  state = {
+    todo: {
+      '1': { id: 1, name: 'Item 1' },
+      '2': { id: 2, name: 'Item 2' },
+      '3': { id: 3, name: 'Item 3' },
+      '4': { id: 4, name: 'Item 4' }
+    },
+    doing: {},
+    done: {}
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <List label={"TODO"} tickets={this.state.todo}/>
+        <List label={"DOING"} tickets={this.state.doing}/>
+        <List label={"DONE"} tickets={this.state.done} />
       </div>
-    );
+
+    )
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App)
