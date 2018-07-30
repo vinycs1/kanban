@@ -25,7 +25,7 @@ class CreateTicket extends Component {
 						onChange={this.handleInputChange}
 					/>
 				</label>
-				
+
 				<label>
 					Descrição:
 				<input
@@ -52,7 +52,6 @@ class CreateTicket extends Component {
 	}
 
 	handleSave(ticket) {
-		console.log("CLISK")
 		if (ticket.name === "")
 			return;
 		ticket["id"] = newId()

@@ -21,36 +21,45 @@ class App extends Component {
       }
     }
 
+    this.ticketStatus = {
+      "todo": "todo",
+      "doing": "doing",
+      "done": "done"
+    }
+
     this.saveTicket = this.saveTicket.bind(this)
     this.moveTicket = this.moveTicket.bind(this)
   }
 
   render() {
-    console.log("this.state", this.state)
     return (
       <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Desafio Pareto Group</h1>
+          <h6>Candidato Vinicius Castro Silva</h6>
+        </header>
         <Row>
           <CreateTicket saveTicket={this.saveTicket} />
         </Row>
         <Row>
-          <TicketList
-            status={"todo"}
-            tickets={this.filterTicketsByStatus("todo")}
-            moveTicket={this.moveTicket}
-          />
-          <TicketList
-            status={"doing"}
-            tickets={this.filterTicketsByStatus("doing")}
-            moveTicket={this.moveTicket}
-          />
-          <TicketList
-            status={"done"}
-            tickets={this.filterTicketsByStatus("done")}
-            moveTicket={this.moveTicket}
-          />
+          {this.renderTicketLists()}
         </Row>
       </div>
 
+    )
+  }
+
+  renderTicketLists() {
+    return (
+      Object.values(this.ticketStatus).map(status => {
+        return <TicketList
+          key={status}
+          status={status}
+          tickets={this.filterTicketsByStatus(status)}
+          moveTicket={this.moveTicket}
+        />
+
+      })
     )
   }
 

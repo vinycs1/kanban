@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { DragSource } from 'react-dnd'
 import { Card, CardBody, CardHeader } from 'reactstrap'
+import Timer from '../Timer/'
 import './ticket.css'
 
 const ticketSource = {
@@ -33,6 +34,7 @@ class Ticket extends Component {
           <CardHeader>{ticket.name}</CardHeader>
           <CardBody>
             {ticket.description}
+            <Timer />
           </CardBody>
         </Card>
       </div>

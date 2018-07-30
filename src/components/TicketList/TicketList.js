@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { DropTarget } from 'react-dnd'
+import { Card, CardHeader } from 'reactstrap'
 import Ticket from '../Ticket/'
+import './ticketList.css'
 
 function collect(connect, monitor) {
   return {
@@ -25,14 +27,16 @@ class List extends Component {
 
   render() {
     const { connectDropTarget, hovered } = this.props
-    const backgroundColor = hovered ? 'lightgreen' : 'white'
+    const backgroundColor = hovered ? '#def9fc' : 'white'
     return connectDropTarget(
-      <div
-        className="col-4"
-        style={{ backgroundColor, "border": "1px solid grey" }}
-      >
-        {this.props.status}
-        {this.renderTickets()}
+      <div className="col-4">
+        <Card style={{ backgroundColor }} className={"component-ticket-list"}>
+          <CardHeader>
+            {this.props.status}
+            <i className={"glyphicon glyphicon-plus"}/>
+          </CardHeader>
+          {this.renderTickets()}
+        </Card>
       </div>
     )
   }
@@ -47,7 +51,7 @@ class List extends Component {
   }
 
   moveTicket(ticket, newStatus) {
-    this.props.moveTicket(ticket,newStatus)
+    this.props.moveTicket(ticket, newStatus)
   }
 }
 
