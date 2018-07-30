@@ -5,8 +5,8 @@ import { Row } from 'reactstrap'
 
 import './App.css';
 
-import List from './components/List'
-import CreateTicket from './components/CreateTicket'
+import TicketList from './components/TicketList/'
+import CreateTicket from './components/CreateTicket/'
 
 
 class App extends Component {
@@ -14,10 +14,10 @@ class App extends Component {
     super()
     this.state = {
       tickets: {
-        '1': { id: 1, name: 'Item 1', description: "randomString", status: "todo" },
-        '2': { id: 2, name: 'Item 2', description: "randomString", status: "todo" },
-        '3': { id: 3, name: 'Item 3', description: "randomString", status: "todo" },
-        '4': { id: 4, name: 'Item 4', description: "randomString", status: "todo" }
+        '1': { id: 1, name: 'Item 1', description: "description ticket 1", status: "todo" },
+        '2': { id: 2, name: 'Item 2', description: "description ticket 2", status: "todo" },
+        '3': { id: 3, name: 'Item 3', description: "description ticket 3", status: "todo" },
+        '4': { id: 4, name: 'Item 4', description: "description ticket 4", status: "todo" }
       }
     }
 
@@ -33,17 +33,17 @@ class App extends Component {
           <CreateTicket saveTicket={this.saveTicket} />
         </Row>
         <Row>
-          <List
+          <TicketList
             status={"todo"}
             tickets={this.filterTicketsByStatus("todo")}
             moveTicket={this.moveTicket}
           />
-          <List
+          <TicketList
             status={"doing"}
             tickets={this.filterTicketsByStatus("doing")}
             moveTicket={this.moveTicket}
           />
-          <List
+          <TicketList
             status={"done"}
             tickets={this.filterTicketsByStatus("done")}
             moveTicket={this.moveTicket}

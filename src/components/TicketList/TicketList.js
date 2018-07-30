@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DropTarget } from 'react-dnd'
-import Ticket from './Ticket'
+import Ticket from '../Ticket/'
 
 function collect(connect, monitor) {
   return {

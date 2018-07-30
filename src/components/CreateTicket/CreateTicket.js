@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import newId from '../utils/generateId'
+import newId from '../../utils/generateId'
 
 class CreateTicket extends Component {
 	constructor(props) {
@@ -22,6 +22,16 @@ class CreateTicket extends Component {
 						name="name"
 						type="text"
 						value={this.state.name}
+						onChange={this.handleInputChange}
+					/>
+				</label>
+				
+				<label>
+					Descrição:
+				<input
+						name="description"
+						type="text"
+						value={this.state.description}
 						onChange={this.handleInputChange}
 					/>
 				</label>
