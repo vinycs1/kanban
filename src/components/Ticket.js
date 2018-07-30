@@ -5,13 +5,11 @@ const ticketSource = {
     beginDrag(props) {
         return props.ticket
     },
+
     endDrag(props, monitor) {
         if (!monitor.didDrop())
             return;
-
-        return props.moveTicket(monitor.getItem())
     }
-
 }
 
 function collect(connect, monitor) {
