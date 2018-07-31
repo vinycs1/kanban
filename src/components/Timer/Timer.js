@@ -3,60 +3,61 @@ import React, { Component } from 'react'
 class Timer extends Component {
   constructor() {
     super()
+
     this.state = {
-      "totalTimerSpend": 0,
-      "currentTimer": 0,
-      "secondsOfPomodoro": 1500,
-      "start": 0,
-      "display": "00:00:00"
+      time: 0
     }
   }
 
+  componentDidMount() {
+    this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
-    console.log(this.state)
+    this.renderTotalSpendedTime()
     return (
       <div>
-        <div>{this.state.display}</div>
-        <div onClick={() => this.onClickStart()}>Timer Start </div>
-        <div onClick={() => this.onClickStop()}>Timer Stop</div>
-
+        {this.renderTotalSpendedTime()}
+        <div onClick={() => this.props.onClickStart(Date.now())}>Timer Start </div>
+        <div onClick={() => this.props.onClickStop(Date.now())}>Timer Stop</div>
       </div>
     )
   }
 
-  onClickStart() {
-    console.log("start")
-    this.setState({
-      start: Date.now()
-    })
+
+  renderTotalSpendedTime() {
+    const { seconds, minute, hour } = this.convertMS(this.props.time.totalSpended)
+
+
+    return <div>
+      hour: {hour}
+      minute:{minute}
+      seconds:{seconds}
+    </div>
   }
 
-  onClickStop() {
-    this.updateTimer();
+  convertMS(milliseconds) {
+    let day, hour, minute, seconds
+
+    seconds = Math.floor(milliseconds / 1000)
+    minute = Math.floor(seconds / 60)
+    seconds = seconds % 60
+    hour = Math.floor(minute / 60)
+    minute = minute % 60
+    day = Math.floor(hour / 24)
+    hour = hour % 24
+
+    return {
+      day: day,
+      hour: hour,
+      minute: minute,
+      seconds: seconds
+    }
   }
 
-  updateTimer() {
-    this.currentTimeSpended()
-  }
-
-  currentTimeSpended() {
-    const { start, totalTimerSpend } = this.state
-
-    const stop = Date.now()
-
-    const currentSpended = stop - start
-    this.setState({
-      "display": this.millisToMinutesAndSeconds(currentSpended),
-      "totalTimerSpend": totalTimerSpend + currentSpended
-    })
-
-  }
-
-  millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return ` ${minutes}: ${(seconds < 10 ? '0' : '')}`
-  }
 
 
 }

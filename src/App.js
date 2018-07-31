@@ -14,10 +14,10 @@ class App extends Component {
     super()
     this.state = {
       tickets: {
-        '1': { id: 1, name: 'Item 1', description: "description ticket 1", status: "todo" },
-        '2': { id: 2, name: 'Item 2', description: "description ticket 2", status: "todo" },
-        '3': { id: 3, name: 'Item 3', description: "description ticket 3", status: "todo" },
-        '4': { id: 4, name: 'Item 4', description: "description ticket 4", status: "todo" }
+        '1': { id: 1, name: 'Item 1', description: "description ticket 1", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } },
+        '2': { id: 2, name: 'Item 2', description: "description ticket 2", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } },
+        '3': { id: 3, name: 'Item 3', description: "description ticket 3", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } },
+        '4': { id: 4, name: 'Item 4', description: "description ticket 4", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } }
       }
     }
 
@@ -29,13 +29,17 @@ class App extends Component {
 
     this.saveTicket = this.saveTicket.bind(this)
     this.moveTicket = this.moveTicket.bind(this)
+    this.updatedTicketTime = this.updatedTicketTime.bind(this)
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Desafio Pareto Group</h1>
+          <h1 className="App-title">
+            Desafio Pareto Group
+          </h1>
           <h6>Candidato Vinicius Castro Silva</h6>
         </header>
         <Row>
@@ -57,6 +61,7 @@ class App extends Component {
           status={status}
           tickets={this.filterTicketsByStatus(status)}
           moveTicket={this.moveTicket}
+          updatedTicketTime={this.updatedTicketTime}
         />
 
       })
@@ -102,6 +107,14 @@ class App extends Component {
     return updatedTicket
   }
 
+  updatedTicketTime(ticket, time) {
+    this.setState(prevState => {
+      let tickets = prevState.tickets
+      tickets[ticket.id]["time"] = time
+
+      return { tickets }
+    })
+  }
 }
 
 export default DragDropContext(HTML5Backend)(App)

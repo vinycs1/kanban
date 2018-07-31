@@ -33,7 +33,7 @@ class List extends Component {
         <Card style={{ backgroundColor }} className={"component-ticket-list"}>
           <CardHeader>
             {this.props.status}
-            <i className={"glyphicon glyphicon-plus"}/>
+            <i className={"glyphicon glyphicon-plus"} />
           </CardHeader>
           {this.renderTickets()}
         </Card>
@@ -46,6 +46,7 @@ class List extends Component {
       <Ticket
         key={ticket.id}
         ticket={ticket}
+        updatedTicketTime={this.props.updatedTicketTime}
       />
     )
   }
@@ -53,6 +54,7 @@ class List extends Component {
   moveTicket(ticket, newStatus) {
     this.props.moveTicket(ticket, newStatus)
   }
+
 }
 
 export default DropTarget('item', ListTarget, collect)(List)

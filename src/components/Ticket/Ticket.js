@@ -24,6 +24,13 @@ function collect(connect, monitor) {
 }
 
 class Ticket extends Component {
+  constructor() {
+    super()
+
+    this.onClickStart = this.onClickStart.bind(this)
+    this.onClickStop = this.onClickStop.bind(this)
+  }
+
   render() {
     const { isDragging, connectDragSource, ticket } = this.props
     const opacity = isDragging ? 0 : 1
@@ -34,11 +41,35 @@ class Ticket extends Component {
           <CardHeader>{ticket.name}</CardHeader>
           <CardBody>
             {ticket.description}
-            <Timer />
+            <Timer
+              time={ticket.time}
+              onClickStart={this.onClickStart}
+              onClickStop={this.onClickStop}
+            />
           </CardBody>
         </Card>
       </div>
     )
+  }
+
+  onClickStart(startedTime) {
+    const { ticket } = this.props
+    let time = ticket.time
+
+    time.start = startedTime
+
+    this.props.updatedTicketTime(ticket, time)
+  }
+
+  onClickStop(stopedTime) {
+    let { ticket } = this.props
+    let time = ticket.time
+
+    time.stop = stopedTime
+    
+    time.totalSpended += time.stop -time.start
+
+    this.props.updatedTicketTime(ticket, time)
   }
 }
 
