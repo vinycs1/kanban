@@ -30,6 +30,8 @@ class Ticket extends Component {
 
     this.onClickStart = this.onClickStart.bind(this)
     this.onClickStop = this.onClickStop.bind(this)
+    this.onClickRemoveTicketTag = this.onClickRemoveTicketTag.bind(this)
+    
   }
 
   render() {
@@ -56,11 +58,15 @@ class Ticket extends Component {
 
   renderTags() {
     return Object.values(this.props.ticket.tags)
-      .map((tag, index) =>
-        <TicketTag
+      .map((tag, index) => {
+        console.log(tag)
+        return <TicketTag
           key={index}
           tag={tag}
+          removeTicketTag={this.onClickRemoveTicketTag}
         />
+      }
+
       )
   }
 
@@ -84,6 +90,12 @@ class Ticket extends Component {
     time.totalSpended += time.stop - time.start
 
     this.props.updatedTicketTime(ticket, time)
+  }
+
+  //TODO: Só remove ao ticket sofrer drag and drop
+  onClickRemoveTicketTag(tag) {
+    let { ticket } = this.props
+    this.props.removeTicketTag(ticket, tag)
   }
 }
 

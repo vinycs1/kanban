@@ -14,7 +14,7 @@ function collect(connect, monitor) {
 
 const ListTarget = {
   drop(props, monitor, component) {
-    component.moveTicket(monitor.getItem(), props.status)
+    component.onMoveTicket(monitor.getItem(), props.status)
   },
 
   canDrop(props, monitor) {
@@ -47,11 +47,13 @@ class List extends Component {
         key={ticket.id}
         ticket={ticket}
         updatedTicketTime={this.props.updatedTicketTime}
+        addTicketTag={this.addTicketTag}
+        removeTicketTag={this.props.removeTicketTag}
       />
     )
   }
 
-  moveTicket(ticket, newStatus) {
+  onMoveTicket(ticket, newStatus) {
     this.props.moveTicket(ticket, newStatus)
   }
 

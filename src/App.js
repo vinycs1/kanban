@@ -25,15 +25,17 @@ class App extends Component {
     this.saveTicket = this.saveTicket.bind(this)
     this.moveTicket = this.moveTicket.bind(this)
     this.updatedTicketTime = this.updatedTicketTime.bind(this)
+    this.addTicketTag = this.addTicketTag.bind(this)
+    this.removeTicketTag = this.removeTicketTag.bind(this)
   }
 
   render() {
-    console.log(tickets)
+    console.log("render", tickets)
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">
-           Kanban
+            Kanban
           </h1>
           <h6>by Vinicius Castro</h6>
         </header>
@@ -57,9 +59,17 @@ class App extends Component {
           tickets={this.filterTicketsByStatus(status)}
           moveTicket={this.moveTicket}
           updatedTicketTime={this.updatedTicketTime}
+          addTicketTag={this.addTicketTag}
+          removeTicketTag={this.removeTicketTag}
         />
       })
     )
+  }
+
+  filterTicketsByStatus(status) {
+    return Object.values(this.state.tickets).filter(ticket => {
+      return ticket.status === status
+    })
   }
 
   saveTicket(ticket) {
@@ -76,12 +86,6 @@ class App extends Component {
     const tickets = Object.values(this.state.tickets)
     return !tickets.some(ticket => {
       return ticket.id === newTicket.id || ticket.name === newTicket.name
-    })
-  }
-
-  filterTicketsByStatus(status) {
-    return Object.values(this.state.tickets).filter(ticket => {
-      return ticket.status === status
     })
   }
 
@@ -105,6 +109,24 @@ class App extends Component {
     this.setState(prevState => {
       let tickets = prevState.tickets
       tickets[ticket.id]["time"] = time
+
+      return { tickets }
+    })
+  }
+
+  addTicketTag(ticket, tag) {
+    this.setState(prevState => {
+      let tickets = prevState.tickets
+      tickets[ticket.id]["tags"][tag.id] = ticket
+
+      return { tickets }
+    })
+  }
+
+  removeTicketTag(ticket, tag) {
+    this.setState(prevState => {
+      let tickets = prevState.tickets
+      delete tickets[ticket.id]["tags"][tag.id]
 
       return { tickets }
     })

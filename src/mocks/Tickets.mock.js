@@ -12,8 +12,8 @@ const tickets = {
       "isRunning": false
     },
     "tags": {
-      "1": "tag 1",
-      "2": "tag 2"
+      "1": { "id": 1, "tag": "tag 1" },
+      "2": { "id": 2, "tag": "tag 2" }
     }
   },
   "2": {
