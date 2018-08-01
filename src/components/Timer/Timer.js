@@ -21,22 +21,30 @@ class Timer extends Component {
     return (
       <div>
         {this.renderTotalSpendedTime()}
-        <div onClick={() => this.props.onClickStart(Date.now())}>Timer Start </div>
-        <div onClick={() => this.props.onClickStop(Date.now())}>Timer Stop</div>
+        <div onClick={() => this.onClickStart()}>Timer Start </div>
+        <div onClick={() => this.onClickStop()}>Timer Stop</div>
       </div>
     )
   }
 
-
   renderTotalSpendedTime() {
-    const { seconds, minute, hour } = this.convertMS(this.props.time.totalSpended)
-
-
+    const convertedTime = this.convertMS(this.props.time.totalSpended)
+    const { seconds, minute, hour } = convertedTime
     return <div>
       hour: {hour}
       minute:{minute}
       seconds:{seconds}
     </div>
+  }
+
+  onClickStart() {
+    if (!this.props.time.isRunning)
+      return this.props.onClickStart(Date.now())
+  }
+
+  onClickStop() {
+    if (this.props.time.isRunning)
+      return this.props.onClickStop(Date.now())
   }
 
   convertMS(milliseconds) {
@@ -57,9 +65,6 @@ class Timer extends Component {
       seconds: seconds
     }
   }
-
-
-
 }
 
 export default Timer

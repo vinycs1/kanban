@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
 import { Row } from 'reactstrap'
-
+import tickets from './mocks/Tickets.mock'
 import './App.css';
 
 import TicketList from './components/TicketList/'
@@ -13,12 +13,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      tickets: {
-        '1': { id: 1, name: 'Item 1', description: "description ticket 1", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } },
-        '2': { id: 2, name: 'Item 2', description: "description ticket 2", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } },
-        '3': { id: 3, name: 'Item 3', description: "description ticket 3", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } },
-        '4': { id: 4, name: 'Item 4', description: "description ticket 4", status: "todo", time: { totalSpended: 0, start: 0, stop: 0, currentTime: 0 } }
-      }
+      tickets
     }
 
     this.ticketStatus = {
@@ -33,14 +28,14 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(tickets)
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">
-            Desafio Pareto Group
+           Kanban
           </h1>
-          <h6>Candidato Vinicius Castro Silva</h6>
+          <h6>by Vinicius Castro</h6>
         </header>
         <Row>
           <CreateTicket saveTicket={this.saveTicket} />
@@ -63,7 +58,6 @@ class App extends Component {
           moveTicket={this.moveTicket}
           updatedTicketTime={this.updatedTicketTime}
         />
-
       })
     )
   }

@@ -5,7 +5,7 @@ class CreateTicket extends Component {
 	constructor(props) {
 		super(props)
 
-		this.handleInputChange = this.handleInputChange.bind(this)
+		this.onInputChange = this.onInputChange.bind(this)
 
 		this.state = {
 			name: "",
@@ -22,7 +22,7 @@ class CreateTicket extends Component {
 						name="name"
 						type="text"
 						value={this.state.name}
-						onChange={this.handleInputChange}
+						onChange={this.onInputChange}
 					/>
 				</label>
 
@@ -32,16 +32,16 @@ class CreateTicket extends Component {
 						name="description"
 						type="text"
 						value={this.state.description}
-						onChange={this.handleInputChange}
+						onChange={this.onInputChange}
 					/>
 				</label>
-				<button onClick={() => this.handleSave(this.state)}>Salvar</button>
+				<button onClick={() => this.onClickSave(this.state)}>Salvar</button>
 
 			</div>
 		)
 	}
 
-	handleInputChange(event) {
+	onInputChange(event) {
 		const target = event.target;
 		const value = target.value;
 		const name = target.name;
@@ -51,12 +51,27 @@ class CreateTicket extends Component {
 		})
 	}
 
-	handleSave(ticket) {
+	onClickSave(ticket) {
 		if (ticket.name === "")
 			return;
 		ticket["id"] = newId()
 		ticket["status"] = "todo"
+		
+		//FIXME
+		ticket.time = this.initialTime()
+		ticket.tags ={}
+		
 		this.props.saveTicket(ticket)
+	}
+
+	initialTime() {
+		return {
+			"totalSpended": 0,
+			"start": 0,
+			"stop": 0,
+			"currentTime": 0,
+			"isRunning": false
+		}
 	}
 }
 

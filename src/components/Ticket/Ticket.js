@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { DragSource } from 'react-dnd'
 import { Card, CardBody, CardHeader } from 'reactstrap'
+import TicketTag from '../TicketTag/'
 import Timer from '../Timer/'
 import './ticket.css'
 
@@ -46,16 +47,28 @@ class Ticket extends Component {
               onClickStart={this.onClickStart}
               onClickStop={this.onClickStop}
             />
+            {this.renderTags()}
           </CardBody>
         </Card>
       </div>
     )
   }
 
+  renderTags() {
+    return Object.values(this.props.ticket.tags)
+      .map((tag, index) =>
+        <TicketTag
+          key={index}
+          tag={tag}
+        />
+      )
+  }
+
   onClickStart(startedTime) {
     const { ticket } = this.props
     let time = ticket.time
 
+    time.isRunning = true
     time.start = startedTime
 
     this.props.updatedTicketTime(ticket, time)
@@ -65,9 +78,10 @@ class Ticket extends Component {
     let { ticket } = this.props
     let time = ticket.time
 
+    time.isRunning = false
     time.stop = stopedTime
-    
-    time.totalSpended += time.stop -time.start
+
+    time.totalSpended += time.stop - time.start
 
     this.props.updatedTicketTime(ticket, time)
   }
