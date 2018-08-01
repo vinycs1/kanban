@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import convertMilliseconds from '../../utils/convertMilliSeconds'
 
 class Timer extends Component {
   constructor() {
@@ -17,24 +18,27 @@ class Timer extends Component {
   }
 
   render() {
-    this.renderTotalSpendedTime()
     return (
       <div>
         {this.renderTotalSpendedTime()}
-        <div onClick={() => this.onClickStart()}>Timer Start </div>
-        <div onClick={() => this.onClickStop()}>Timer Stop</div>
+        {this.renderTimerIcon()}
       </div>
     )
   }
 
+  renderTimerIcon() {
+    return this.props.time.isRunning ?
+      <span onClick={() => this.onClickStop()}><i className="fa fa-stop" /></span> :
+      <span onClick={() => this.onClickStart()}><i className="fa fa-play"/></span>
+  }
+
   renderTotalSpendedTime() {
-    const convertedTime = this.convertMS(this.props.time.totalSpended)
-    const { seconds, minute, hour } = convertedTime
-    return <div>
+    const { seconds, minute, hour } = convertMilliseconds(this.props.time.totalSpended)
+    return <span>
       hour: {hour}
       minute:{minute}
       seconds:{seconds}
-    </div>
+    </span>
   }
 
   onClickStart() {
@@ -47,24 +51,6 @@ class Timer extends Component {
       return this.props.onClickStop(Date.now())
   }
 
-  convertMS(milliseconds) {
-    let day, hour, minute, seconds
-
-    seconds = Math.floor(milliseconds / 1000)
-    minute = Math.floor(seconds / 60)
-    seconds = seconds % 60
-    hour = Math.floor(minute / 60)
-    minute = minute % 60
-    day = Math.floor(hour / 24)
-    hour = hour % 24
-
-    return {
-      day: day,
-      hour: hour,
-      minute: minute,
-      seconds: seconds
-    }
-  }
 }
 
 export default Timer
