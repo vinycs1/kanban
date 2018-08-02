@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import newId from '../../utils/generateId'
+import './createTicket.css'
 
 class CreateTicket extends Component {
 	constructor(props) {
@@ -15,29 +16,43 @@ class CreateTicket extends Component {
 
 	render() {
 		return (
-			<div style={{ "marginLeft": "50px" }}>
-				<label>
-					Nome:
-				<input
-						name="name"
-						type="text"
-						value={this.state.name}
-						onChange={this.onInputChange}
-					/>
-				</label>
+			<div className="container component-create-ticket">
+				<div className="row">
+					<div className="input-group sm-3">
+						<div className="input-group-prepend">
+							<span className="input-group-text">Ticket</span>
+						</div>
+						<input
+							value={this.state.name}
+							onChange={this.onInputChange}
+							type="text"
+							name="name"
+							className="form-control"
+							placeholder="Ticket"
+						/>
+						<div className="input-group-prepend">
+							<span className="input-group-text">Descrição</span>
+						</div>
+						<input
+							value={this.state.description}
+							onChange={this.onInputChange}
+							type="text"
+							name="name"
+							className="form-control"
+							placeholder="Ticket"
+						/>
+						<button
+							onClick={() => this.onClickSave(this.state)}
+							className="btn btn-light"
+						>
+							Salvar
+					 </button>
 
-				<label>
-					Descrição:
-				<input
-						name="description"
-						type="text"
-						value={this.state.description}
-						onChange={this.onInputChange}
-					/>
-				</label>
-				<button onClick={() => this.onClickSave(this.state)}>Salvar</button>
+					</div>
 
+				</div>
 			</div>
+
 		)
 	}
 
@@ -56,17 +71,17 @@ class CreateTicket extends Component {
 			return;
 		ticket["id"] = newId()
 		ticket["status"] = "todo"
-		
+
 		//FIXME
 		ticket.time = this.initialTime()
-		ticket.tags ={}
-		
+		ticket.tags = {}
+
 		this.props.saveTicket(ticket)
 	}
 
 	initialTime() {
 		return {
-			"totalSpended": 0,
+			"total": 0,
 			"start": 0,
 			"stop": 0,
 			"currentTime": 0,

@@ -2,55 +2,41 @@ import React, { Component } from 'react'
 import convertMilliseconds from '../../utils/convertMilliSeconds'
 
 class Timer extends Component {
-  constructor() {
-    super()
-
+  constructor(props) {
+    super(props);
     this.state = {
-      time: 0
+      time: props.time
     }
   }
 
-  componentDidMount() {
-    this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
-  }
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentWillReceiveProps(nextProps) {
+    console.log("nextProps", nextProps)
+    this.setState({
+      time: nextProps.time
+    })
   }
 
   render() {
+    console.log("render")
     return (
       <div>
-        {this.renderTotalSpendedTime()}
-        {this.renderTimerIcon()}
+        {this.renderTotalTime()}
       </div>
     )
   }
 
-  renderTimerIcon() {
-    return this.props.time.isRunning ?
-      <span onClick={() => this.onClickStop()}><i className="fa fa-stop" /></span> :
-      <span onClick={() => this.onClickStart()}><i className="fa fa-play"/></span>
-  }
+  renderTotalTime() {
+    console.log(this.state.time)
+    const { seconds, minute, hour } = convertMilliseconds(this.state.time)
 
-  renderTotalSpendedTime() {
-    const { seconds, minute, hour } = convertMilliseconds(this.props.time.totalSpended)
-    return <span>
-      hour: {hour}
-      minute:{minute}
-      seconds:{seconds}
-    </span>
+    return (
+      <span>
+        hour: {hour}
+        minute:{minute}
+        seconds:{seconds}
+      </span>
+    )
   }
-
-  onClickStart() {
-    if (!this.props.time.isRunning)
-      return this.props.onClickStart(Date.now())
-  }
-
-  onClickStop() {
-    if (this.props.time.isRunning)
-      return this.props.onClickStop(Date.now())
-  }
-
 }
 
 export default Timer

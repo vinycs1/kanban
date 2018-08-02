@@ -9,11 +9,12 @@ const tickets = {
       "start": 0,
       "stop": 0,
       "currentTime": 0,
-      "isRunning": false
+      "isRunning": false,
+      "total": 0
     },
     "tags": {
-      "1": { "id": 1, "tag": "tag 1" },
-      "2": { "id": 2, "tag": "tag 2" }
+      "1": { "id": 1, "label": "tag 1" },
+      "2": { "id": 2, "label": "tag 2" }
     }
   },
   "2": {
@@ -26,7 +27,8 @@ const tickets = {
       "start": 0,
       "stop": 0,
       "currentTime": 0,
-      "isRunning": false
+      "isRunning": false,
+      "total": 0
     },
     "tags": {}
   },
@@ -40,7 +42,8 @@ const tickets = {
       "start": 0,
       "stop": 0,
       "currentTime": 0,
-      "isRunning": false
+      "isRunning": false,
+      "total": 0
     },
     "tags": {}
   },
@@ -54,7 +57,8 @@ const tickets = {
       "start": 0,
       "stop": 0,
       "currentTime": 0,
-      "isRunning": false
+      "isRunning": false,
+      "total": 0
     },
     "tags": {}
   }

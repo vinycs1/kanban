@@ -24,13 +24,26 @@ const ListTarget = {
 }
 
 class List extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      tickets: props.tickets
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      tickets: nextProps.tickets
+    })
+  }
 
   render() {
     const { connectDropTarget, hovered } = this.props
     const backgroundColor = hovered ? '#def9fc' : 'white'
     return connectDropTarget(
-      <div className="col-4">
-        <Card style={{ backgroundColor }} className={"component-ticket-list"}>
+      <div className="col-4 component-ticket-list">
+        <Card style={{ backgroundColor }}>
           <CardHeader>
             {this.props.status}
             <i className={"glyphicon glyphicon-plus"} />
@@ -42,7 +55,7 @@ class List extends Component {
   }
 
   renderTickets() {
-    return Object.values(this.props.tickets).map(ticket =>
+    return Object.values(this.state.tickets).map(ticket =>
       <Ticket
         key={ticket.id}
         ticket={ticket}
@@ -56,7 +69,6 @@ class List extends Component {
   onMoveTicket(ticket, newStatus) {
     this.props.moveTicket(ticket, newStatus)
   }
-
 }
 
 export default DropTarget('item', ListTarget, collect)(List)
