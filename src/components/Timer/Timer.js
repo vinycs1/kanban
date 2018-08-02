@@ -1,23 +1,9 @@
 import React, { Component } from 'react'
-import convertMilliseconds from '../../utils/convertMilliSeconds'
+import convertSeconds from '../../utils/convertSeconds'
 
 class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: props.time
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps)
-    this.setState({
-      time: nextProps.time
-    })
-  }
-
+  
   render() {
-    console.log("render")
     return (
       <div>
         {this.renderTotalTime()}
@@ -26,8 +12,8 @@ class Timer extends Component {
   }
 
   renderTotalTime() {
-    console.log(this.state.time)
-    const { seconds, minute, hour } = convertMilliseconds(this.state.time)
+   
+    const { seconds, minute, hour } = convertSeconds(this.props.time)
 
     return (
       <span>

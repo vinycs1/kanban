@@ -1,7 +1,6 @@
-export default function convertMilliseconds(milliseconds) {
-  let day, hour, minute, seconds
+export default function convertSeconds(seconds) {
+  let day, hour, minute
 
-  seconds = Math.floor(milliseconds / 1000)
   minute = Math.floor(seconds / 60)
   seconds = seconds % 60
   hour = Math.floor(minute / 60)
