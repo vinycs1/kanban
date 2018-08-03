@@ -18,7 +18,7 @@ class Timer extends Component {
     return (
       <div className={"component-timer"}>
         <i className={"fa fa-clock-o"}></i>
-        {hour}:{minute}:{seconds}
+        <span>{hour}:{minute}:{seconds}</span>
       </div>
     )
   }

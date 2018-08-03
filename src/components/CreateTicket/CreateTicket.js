@@ -6,12 +6,12 @@ class CreateTicket extends Component {
 	constructor(props) {
 		super(props)
 
-		this.onInputChange = this.onInputChange.bind(this)
-
 		this.state = {
 			name: "",
 			description: ""
 		}
+
+		this.onInputChange = this.onInputChange.bind(this)
 	}
 
 	render() {
@@ -57,9 +57,9 @@ class CreateTicket extends Component {
 	}
 
 	onInputChange(event) {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
+		const target = event.target
+		const value = target.value
+		const name = target.name
 
 		this.setState({
 			[name]: value
@@ -69,10 +69,9 @@ class CreateTicket extends Component {
 	onClickSave(ticket) {
 		if (ticket.name === "")
 			return;
+
 		ticket["id"] = newId()
 		ticket["status"] = "todo"
-
-		//FIXME
 		ticket.time = this.initialTime()
 		ticket.tags = {}
 

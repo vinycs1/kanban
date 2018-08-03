@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { DragSource } from 'react-dnd'
 import { Card, CardBody, CardHeader } from 'reactstrap'
+import CreateTicketTag from '../CreateTicketTag/'
 import TicketTag from '../TicketTag/'
 import Timer from '../Timer/'
 import './ticket.css'
@@ -13,7 +14,7 @@ const ticketSource = {
 
   endDrag(props, monitor) {
     if (!monitor.didDrop())
-      return;
+      return
   }
 }
 
@@ -36,6 +37,7 @@ class Ticket extends Component {
 
     this.onClickPlay = this.onClickPlay.bind(this)
     this.onClickStop = this.onClickStop.bind(this)
+    this.addTicketTag = this.addTicketTag.bind(this)
     this.removeTicketTag = this.removeTicketTag.bind(this)
 
   }
@@ -54,7 +56,7 @@ class Ticket extends Component {
       if (this.state.ticket.time.isRunning) {
         this.tick()
       }
-    }, 1000);
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -71,6 +73,10 @@ class Ticket extends Component {
       <div style={{ opacity }} className={"component-ticket"}>
         <Card>
           <CardHeader>
+            <CreateTicketTag
+              target={ticket.id}
+              addTicketTag={this.addTicketTag}
+            />
             <span className="ticket-name">
               {ticket.name}
             </span>
@@ -81,7 +87,6 @@ class Ticket extends Component {
             <Timer
               time={ticket.time.total}
             />
-            <div onClick={() => this.addTicketTag()}>ADDTAG</div>
             {this.renderTags()}
           </CardBody>
         </Card>
@@ -106,11 +111,13 @@ class Ticket extends Component {
       this.state.ticket.time.isRunning ?
         <span onClick={() => this.onClickStop()}>
           <i
+            title={"Stop"}
             className="fa fa-stop pull-right component-ticket-timer component-ticket-timer-stop"
           />
         </span> :
         <span onClick={() => this.onClickPlay()}>
           <i
+            title={"Play"}
             className="fa fa-play pull-right component-ticket-timer component-ticket-timer-play"
           />
         </span>
@@ -140,8 +147,9 @@ class Ticket extends Component {
     })
   }
 
-  addTicketTag() {
-    const tag = this.generateRandomTag()
+  addTicketTag(label) {
+    const id = generateTagId(this.state.ticket)
+    const tag = { id, label }
     this.setState(prevState => {
       let { ticket } = prevState
       ticket["tags"][tag.id] = tag
@@ -166,4 +174,4 @@ class Ticket extends Component {
   }
 }
 
-export default DragSource('item', ticketSource, collect)(Ticket);
+export default DragSource('item', ticketSource, collect)(Ticket)
