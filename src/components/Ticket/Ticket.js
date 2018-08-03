@@ -148,7 +148,7 @@ class Ticket extends Component {
   }
 
   addTicketTag(label) {
-    const id = generateTagId(this.state.ticket)
+    const id = generateTagId(this.state.ticket.tags)
     const tag = { id, label }
     this.setState(prevState => {
       let { ticket } = prevState
